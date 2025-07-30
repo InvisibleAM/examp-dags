@@ -7,7 +7,7 @@ def print_hello():
     print("Hello world from first Airflow DAG!")
 
 with DAG(
-    id='hello_world',
+    dag_id='hello_world',
     description='Hello World DAG',
     schedule="0 12 * * *",  # Replaces schedule_interval
     start_date=datetime(2017, 3, 20),
