@@ -1,21 +1,21 @@
 from datetime import datetime
 from airflow import DAG
-from airflow.operators.empty import EmptyOperator  # replaces DummyOperator
-from airflow.operators.python import PythonOperator  # updated import
+from airflow.providers.standard.operators.empty import EmptyOperator
+from airflow.providers.standard.operators.python import PythonOperator
 
 def print_hello():
-    return 'Hello world from first Airflow DAG!'
+    print("Hello world from first Airflow DAG!")
 
 with DAG(
-    dag_id='hello_world',
+    id='hello_world',
     description='Hello World DAG',
-    schedule_interval='0 12 * * *',  # valid cron: 12:00 PM every day
+    schedule="0 12 * * *",  # Replaces schedule_interval
     start_date=datetime(2017, 3, 20),
     catchup=False,
     tags=["example"]
 ) as dag:
 
-    start = PythonOperator(
+    hello_task = PythonOperator(
         task_id='hello_task',
         python_callable=print_hello
     )
